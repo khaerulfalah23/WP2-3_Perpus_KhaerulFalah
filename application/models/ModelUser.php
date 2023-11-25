@@ -12,6 +12,11 @@ class ModelUser extends CI_Model
     {
         return $this->db->get_where('user', $where);
     }
+    
+    public function getUser()
+    {
+        return $this->db->get('user');
+    }
 
     public function getUserWhere($where = null)
     {
@@ -32,5 +37,15 @@ class ModelUser extends CI_Model
         $this->db->from('user');
         $this->db->limit(10, 0);
         return $this->db->get();
+    }
+
+    public function updateUser($data = null, $where = null)
+    {
+        $this->db->update('user', $data, $where);
+    }
+
+    public function hapusUser($where = null)
+    {
+        $this->db->delete('user', $where);
     }
 }

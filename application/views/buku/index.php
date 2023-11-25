@@ -48,7 +48,7 @@
                         </td>
                         <td>
                             <a href="<?= base_url('buku/ubahBuku/').$b['id'];?>" class="badge badge-info"><i class="fas fa-edit"></i> Ubah</a>
-                            <a href="<?= base_url('buku/hapusbuku/').$b['id'];?>" onclick="return confirm('Kamu yakin akan menghapus <?= $judul.' '.$b['judul_buku'];?> ?');" class="badge badge-danger"><i class="fas fa-trash"></i> Hapus</a>
+                            <a href="<?= base_url('buku/hapusbuku/').$b['id'];?>" class="badge badge-danger"><i class="fas fa-trash"></i> Hapus</a>
                         </td>
                     </tr>
                     <?php } ?>
