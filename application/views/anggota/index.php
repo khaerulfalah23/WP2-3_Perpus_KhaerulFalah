@@ -24,7 +24,8 @@
                 <tbody>
                     <?php
                     $b = 1;
-                    foreach ($anggota as $a) { ?>
+                    foreach ($anggota as $a): ?>
+                    <?php if($a['role_id'] == 2): ?>
                     <tr>
                         <th scope="row"><?= $b++; ?></th>
                         <td><?= $a['nama']; ?></td>
@@ -41,7 +42,8 @@
                             <a href="<?= base_url('anggota/hapusAnggota/').$a['id'];?>" class="badge badge-danger"><i class="fas fa-trash"></i> Hapus</a>
                         </td>
                     </tr>
-                    <?php } ?>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>

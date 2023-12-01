@@ -51,7 +51,7 @@ class Autentifikasi extends CI_Controller
                     if ($data['role_id'] == 1) {
                         redirect('admin');
                     }
-                    redirect('user');
+                    redirect('home');
                 } else {
                     $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-message" role="alert">Password salah!!</div>');
                     redirect('autentifikasi');

@@ -39,7 +39,7 @@
             <div class="error mx-auto" data-text="403">403</div>
             <p class="lead text-gray-800 mb-5">Akses tidak diizinkan</p>
             <p class="text-gray-500 mb-0">Sepertinya kamu megakses halaman yang salah</p>
-            <a href="<?= base_url('user');?>">&larr; Kembali ke Dashboard</a>
+            <a href="<?= base_url('autentifikasi/logout');?>">&larr; Kembali ke Dashboard</a>
           </div>
 
         </div>

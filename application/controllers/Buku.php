@@ -7,6 +7,7 @@ class Buku extends CI_Controller
     {
         parent::__construct();
         cek_login();
+        cek_user();
     }
 
     //manajemen kategori
@@ -263,7 +264,7 @@ class Buku extends CI_Controller
                 $old_image = $data['buku']['image'];
                 unlink(FCPATH . 'assets/img/upload/' . $old_image);
                 $gambar = $image['file_name'];
-            } else { $gambar = $data['user']['image']; }
+            } else { $gambar = $data['buku']['image']; }
             
             // data postingan
             $data = [

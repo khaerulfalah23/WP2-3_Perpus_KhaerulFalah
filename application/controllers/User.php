@@ -21,20 +21,6 @@ class User extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function anggota()
-    {
-        $data['judul'] = 'Data Anggota';
-        $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
-        $this->db->where('role_id', 2);
-        $data['anggota'] = $this->db->get('user')->result_array();
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('user/anggota', $data);
-        $this->load->view('templates/footer');
-    }
-
     public function ubahProfil()
     {
         $data['judul'] = 'Ubah Profil';

@@ -7,6 +7,7 @@ class Anggota extends CI_Controller
     {
         parent::__construct();
         cek_login();
+        cek_user();
     }
 
     // Management anggota
@@ -130,7 +131,7 @@ class Anggota extends CI_Controller
             ];
 
             $this->ModelUser->updateUser($data, ['id' => $this->input->post('id')]);
-            redirect('buku');
+            redirect('anggota');
         }
     }
 
