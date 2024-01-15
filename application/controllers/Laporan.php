@@ -103,4 +103,53 @@ class Laporan extends CI_Controller
         $data = array( 'title' => 'Laporan Data Peminjaman Buku','laporan' => $this->db->query("select * from pinjam p,detail_pinjam d,buku b,user u where d.id_buku=b.id and p.id_user=u.id and p.no_pinjam=d.no_pinjam")->result_array());
         $this->load->view('pinjam/export-excel-pinjam', $data);
     }
+
+    public function laporan_anggota()
+    {
+        $data['judul'] = 'Laporan Data Anggota';
+        $data['user'] = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+        $data['anggota'] = $this->ModelUser->getUserWhere(['role_id' => '2'])->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('anggota/laporan_anggota', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function cetak_laporan_anggota()
+    {  
+        $data['anggota'] = $this->ModelUser->getUserWhere(['role_id' => '2'])->result_array();
+        $this->load->view('anggota/laporan_print_anggota',$data);
+    }
+
+    public function laporan_anggota_pdf()
+    {
+        $data['judul'] = 'Laporan Data Anggota';
+        $data['anggota'] = $this->ModelUser->getUserWhere(['role_id' => '2'])->result_array();
+
+        $this->load->library('dompdf_gen');
+
+        $this->load->view('anggota/laporan_pdf_anggota', $data);
+
+        $paper_size = 'A4'; // ukuran kertas
+        $orientation = 'landscape';//tipe format kertas potrait atau landscape
+        $html = $this->output->get_output();
+
+        $this->dompdf->set_paper($paper_size, $orientation);
+        //Convert to PDF
+        $this->dompdf->load_html($html);
+        $this->dompdf->render();
+        $this->dompdf->stream("laporan_data_anggota.pdf", array('Attachment' => 0));
+        //nama file pdf yang dihasilkan
+    }
+
+    public function export_excel_anggota()
+    {
+        $data=array(
+            'title' => 'Laporan Anggota',
+            'anggota' => $this->ModelUser->getUserWhere(['role_id' => '2'])->result_array()
+        );
+        $this->load->view('anggota/export_excel_anggota', $data);
+    }
 }

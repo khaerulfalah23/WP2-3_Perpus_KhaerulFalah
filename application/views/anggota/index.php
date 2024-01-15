@@ -30,6 +30,7 @@
                         <th scope="row"><?= $b++; ?></th>
                         <td><?= $a['nama']; ?></td>
                         <td><?= $a['email']; ?></td>
+                        <td><?= $a['alamat']; ?></td>
                         <td><?= ($a['is_active'] == 1) ? 'active' : 'nonaktif' ?></td>
                         <td style="width: 100px;">
                             <picture>
