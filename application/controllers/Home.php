@@ -4,34 +4,34 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Home extends CI_Controller
 {
 
-    public function index()
-    {
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->model(['ModelBuku', 'ModelUser', 'ModelBooking']);
+	}
+
+	public function index()
+	{
 		$data = [
-			'judul' => "Katalog Buku",
-			'buku' => $this->ModelBuku->getBuku()->result(),
-			'user' => $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array()
+			'title' => "Katalog Buku",
+			'buku' => $this->ModelBuku->getBuku()->result()
 		];
 
-		$this->load->view('templates/user_header', $data);
-		$this->load->view('buku/daftarbuku');
-		$this->load->view('templates/user_footer');
-
 		//jika sudah login dan jika belum login
-		// if ($this->session->userdata('email')) {
-		// 	$user = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
-		// 	$data['user']=$user['nama'];
-
-		// 	$this->load->view('templates/templates-user/header',$data);
-		// 	$this->load->view('templates/templates-user/index',$data);
-		// 	$this->load->view('templates/templates-user/modal');
-		// 	$this->load->view('templates/templates-user/footer',$data);
-		// } else {
-		// 	$data['user'] = 'Pengunjung';
-		// 	$this->load->view('templates/templates-user/header',$data);
-		// 	$this->load->view('buku/daftarbuku',$data);
-		// 	$this->load->view('templates/templates-user/modal');
-		// 	$this->load->view('templates/templates-user/footer',$data);
-		// }
+		if ($this->session->userdata('email')) {
+			$user = $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array();
+			$data['user'] = $user['nama'];
+			$this->load->view('templates/templates-user/header', $data);
+			$this->load->view('buku/daftarbuku');
+			// $this->load->view('templates/templates-user/modal');
+			$this->load->view('templates/templates-user/footer');
+			} else {
+			$data['user'] = 'Pengunjung';
+			$this->load->view('templates/templates-user/header', $data);
+			$this->load->view('buku/daftarbuku');
+			// $this->load->view('templates/templates-user/modal');
+			$this->load->view('templates/templates-user/footer');
+		}
 	}
 
 	public function detailBuku()
@@ -40,9 +40,8 @@ class Home extends CI_Controller
 		$buku = $this->ModelBuku->joinKategoriBuku(['buku.id' => $id])->row_array();
 
 		$data = [
-			'title' => "Detail Buku",
-			'buku' => $this->ModelBuku->getBuku()->result(),
-			'user' => $this->ModelUser->cekData(['email' => $this->session->userdata('email')])->row_array(),
+			'user' => 'Pengunjung',
+			'title' => 'Detail Buku',
 			'judul' => $buku['judul_buku'],
 			'pengarang' => $buku['pengarang'],
 			'penerbit' => $buku['penerbit'],
@@ -53,11 +52,11 @@ class Home extends CI_Controller
 			'dipinjam' => $buku['dipinjam'],
 			'dibooking' => $buku['dibooking'],
 			'stok' => $buku['stok'],
-			'id' => $buku['id'],
+			'id' => $id
 		];
-		
-		$this->load->view('templates/user_header', $data);
+		 
+		$this->load->view('templates/templates-user/header', $data);
 		$this->load->view('buku/detailbuku');
-		$this->load->view('templates/user_footer');
+		$this->load->view('templates/templates-user/footer');
 	}
 }
